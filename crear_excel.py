@@ -1,8 +1,7 @@
 
 import pandas as pd
-import openpyxl
 from openpyxl import load_workbook
-from openpyxl.chart import BarChart, Reference, BarChart3D, ProjectedPieChart, PieChart, LineChart
+from openpyxl.chart import BarChart, Reference, PieChart, LineChart
 from openpyxl.styles import Font, PatternFill
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.drawing.image import Image

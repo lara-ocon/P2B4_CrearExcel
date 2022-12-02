@@ -1,0 +1,8 @@
+openpyxl
+pandas
+regex
+seaborn
+numpy
+datetime
+matplotlib
+
