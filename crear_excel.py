@@ -131,11 +131,10 @@ def pestaña_pizzas_semanas(wb):
     pestaña['A1'].font = Font(name = 'Arial', size = 20) # con color='00FF0000' se pone en rojo
     pestaña['A2'].font = Font(name = 'Arial', size = 14)
 
-
     tabla_medias_pizzas(pestaña) # añadimos una tabla con las medias de las pizzas pedidas por semana
     total_pizzas_semana(pestaña) # sumamos el total de pizzas que se piden cada semana
     pie_chart(pestaña, [36,37], [6,6], [37,37], 'Media de pizzas por tipo', "AM5")
-    wb.save('reportev3.xlsx')
+   
     # insertamos un grafico con como ha sido la evolucion de la pizza mas pedida = thai_ckn
     bar_chart(pestaña, [1, 31], [1, 31], [6, 5], [52, 52], "Evolución pedidos thai_ckn", 'B61', 'semanas', 'cantidad', '4169E1')
 
@@ -190,10 +189,8 @@ def añadir_cols_media_prediccion(pestaña):
     while c < 65:
         # la fila donde lo vamos a poner es la 59
         columna = letra_delante+f"{chr(letra)}"
-        print("columna", columna)
 
         # Calculamos el promedio de cada fila
-        # print(f"{columna}59")
         pestaña[f"B{62+1+c}"] = pestaña[f"{columna}5"].value
         pestaña[f"C{62+1+c}"] = f'=SUM({columna}5:{columna}58)/52'
         pestaña[f"D{62+1+c}"] = f'=C{62+1+c}*1.2'
@@ -267,7 +264,6 @@ def lineplot_prediccion_vs_realidad(pestaña):
         pestaña[f"AE{62+i}"].fill = PatternFill(start_color='0000ff', end_color='0000ff', fill_type='solid')
 
         i += 1
-
 
     # creamos la grafica
     grafica = LineChart()
@@ -346,41 +342,33 @@ def pestaña_reporte_ejecutivo(wb):
 
 if __name__ == "__main__":
 
-    # CREAMOS LA HOJA CON EL ANÁLISIS DE PIZZAS PEDIDAS
+    # CREAMOS LA HOJA CON EL ANÁLISIS DE PIZZAS PEDIDAS =======================================================#
 
     # extraemos los dataframes que tenemos creados
     df_pizzas_semana = extract('pizzas_semana.csv').rename(columns={'Unnamed: 0': 'semana'}).set_index('semana')
 
     # creamos la tabla pivote y la insertamos en la hoja del excel: 'Pizzas a la semana'
     tabla_pivote = df_pizzas_semana.pivot_table(index='semana')
-    tabla_pivote.to_excel('reportev4.xlsx', startrow=4, sheet_name='Pizzas a la semana')
+    tabla_pivote.to_excel('reporte_ejecutivo.xlsx', startrow=4, sheet_name='Pizzas a la semana')
 
-    wb = load_workbook('reportev4.xlsx') # cargamos el workbook
+    wb = load_workbook('reporte_ejecutivo.xlsx') # cargamos el workbook
     # writer = pd.ExcelWriter('reportev4.xlsx', engine = 'openpyxl')
     # writer.book = wb
 
     # añadimos una pagina con la informacion acerca de las pizzas que se han pedido a la semana
     pestaña_pizzas_semanas(wb)
-    
-    # guardamos por ahora
-    wb.save('reportev4.xlsx')
 
-
-    # AÑADIMOS OTRA HOJA CON LOS INGREDIENTES POR SEMANA ===============================================================#
+    # AÑADIMOS OTRA HOJA CON LOS INGREDIENTES POR SEMANA =======================================================#
     wb.create_sheet('Ingredientes por semana')
 
     pestaña_ingredientes_semanas(wb)
 
-    # writer.save()
-    # writer.close()
-
-    wb.save('reportev5.xlsx')
-
-    # AÑADIMOS UNA ULTIMA HOJA CON EL REPORTE EJECUTIVO ===================================================================#
+    # AÑADIMOS UNA ULTIMA HOJA CON EL REPORTE EJECUTIVO =========================================================#
     wb.create_sheet('Reporte ejecutivo')
 
     pestaña_reporte_ejecutivo(wb)
 
-    wb.save('reportev6.xlsx')
+    # Hemos terminado de crear el reporte ejecutivo, ahora lo guardamos
+    wb.save('reporte_ejecutivo.xlsx')
 
 
