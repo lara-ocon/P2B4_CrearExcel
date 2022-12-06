@@ -15,3 +15,20 @@ El excel creado, queda dividido en 3 hojas:
     Esta última hoja, he decidido centrarla en las ganancias de la pizzería. Para ello, he insertado dos imagenes que he creado en 'creacion_imagenes.ipynb'. Estas imagenes son: 1) Ganancias por semana: muestra un lineplot con las ganancias para cada semana del año. 2) Ganancias por mes: muestra un lineplot con las ganancias para cada mes del año.
 
 Para llevar a cabo la práctica, hemos aprovechado el trabajo de la práctica 2 bloque 2 (pizzas 2016) exportando tanto los dataframes creados a csv (encontrados dentro de la carpeta ficheros), como guardando las gráficas que hemos ido creando a partir de estos dataframes en png's (encontrados dentro de la carpeta imagenes). Para ver como se han creado tanto las imagenes como los ficheros, todo se encuentra del del notebook "creacion_imagenes.ipynb".
+
+Docker
+======
+
+El programa puede también ejecutarse mediante docker, para ello basta con correr dos scripts: 
+
+- El primero createdocker.sh genera el docker que contiene el programa y los datos necesarios.
+- El segundo rundocker.sh corre el docker, nos aparece el simbolo #. A partir de ahi hace falta correr el programa dentro del docker, tecleando:
+
+python3 ./crear_excel.py
+
+Esto genera el mismo fichero .xlsx dentro del docker.
+
+Nos saldremos del docker tecleando "exit"
+
+
+
